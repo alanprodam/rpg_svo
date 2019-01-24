@@ -203,15 +203,15 @@ void Visualizer::visualizeMarkers(
 {
   if(frame == NULL)
     return;
-
+//**************************************************************************
   vk::output_helper::publishTfTransform(
       frame->T_f_w_*T_world_from_vision_.inverse(),
-      ros::Time(frame->timestamp_), "cam_pos", "world", br_);
-
+      ros::Time(frame->timestamp_), "camera_base_link", "world", br_); // cam_pos
+//**************************************************************************
   if(pub_frames_.getNumSubscribers() > 0 || pub_points_.getNumSubscribers() > 0)
   {
     vk::output_helper::publishCameraMarker(
-        pub_frames_, "cam_pos", "cams", ros::Time(frame->timestamp_),
+        pub_frames_, "camera_base_link", "cams", ros::Time(frame->timestamp_), // cam_pos
         1, 0.3, Vector3d(0.,0.,1.));
     vk::output_helper::publishPointMarker(
         pub_points_, T_world_from_vision_*frame->pos(), "trajectory",
